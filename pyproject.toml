@@ -2,7 +2,7 @@
 name = "expency"
 version = "0.1.0"
 description = ""
-authors = ["tenngage ibi0880@gmail.com"]
+authors = ["tenngage <ibi0880@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
