@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "expency"
 version = "0.1.0"
-description = ""
+description = "CLI app to manage expenses"
+license = "MIT"
 authors = ["tenngage <ibi0880@gmail.com>"]
 readme = "README.md"
 
@@ -16,5 +17,5 @@ pytest = "^8.3.3"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[project.scripts]
-expency = "expency:main"
+[tool.poetry.scripts]
+expency = 'expency:main'
