@@ -1,4 +1,4 @@
-from smth.months import MONTHS
+from months import MONTHS
 from argparse import ArgumentParser
 from tabulate import tabulate
 from typing import Callable, Generator, Tuple
@@ -152,6 +152,9 @@ def summary(database: dict, month: str) -> None:
 
 
 def list_expenses(database: dict, month: str) -> None:
+    if bool(database.items()) is False:
+        print("Nothing to display")
+        return
     if month is None:
         month = "all"
     table: Generator = ({
