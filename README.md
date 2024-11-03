@@ -15,10 +15,11 @@ It is inspired from the [Expense Tracker](https://roadmap.sh/projects/expense-tr
    ```sh
    pip install git+https://github.com/tenngage/expency.git   
 
+
 ## Usage
-1. Run the application
+Run the application
    ```sh
-   expency -h # Show help
+   expency -h #Show help
    expency add --name "Dinner" --amount "150" #Add an expense
    expency list #List all expenses
    expency summary #Show summary of expenses
