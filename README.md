@@ -17,10 +17,11 @@ It is inspired from the [Expense Tracker](https://roadmap.sh/projects/expense-tr
 
 ## Usage
 Run the application
-    ```sh      
+```      
     expency -h # Show help
     expency add --name "Dinner" --amount "150" # Add an expense
     expency list # List all expenses
     expency summary # Show summary of expenses
     expency summary --month 10 # Show summary for a specific month
     expency delete --id 1 # Delete an expense by ID
+```
