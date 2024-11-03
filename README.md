@@ -12,16 +12,14 @@ It is inspired from the [Expense Tracker](https://roadmap.sh/projects/expense-tr
 - **Generate Reports**: Create summary reports of expenses over a specified period.
 
 ## Installation via **pip**
-   ```sh
-   pip install git+https://github.com/tenngage/expency.git   
+    pip install git+https://github.com/tenngage/expency.git   
 
 
 ## Usage
 Run the application
-   ```sh
-   expency -h #Show help
-   expency add --name "Dinner" --amount "150" #Add an expense
-   expency list #List all expenses
-   expency summary #Show summary of expenses
-   expency summary --month 10 #Show summary for a specific month
-   expency delete --id 1 #Delete an expense by ID
+    expency -h # Show help
+    expency add --name "Dinner" --amount "150" # Add an expense
+    expency list # List all expenses
+    expency summary # Show summary of expenses
+    expency summary --month 10 # Show summary for a specific month
+    expency delete --id 1 # Delete an expense by ID
