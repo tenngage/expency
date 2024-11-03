@@ -1,4 +1,3 @@
-from months import MONTHS
 from argparse import ArgumentParser
 from tabulate import tabulate
 from typing import Callable, Generator, Tuple
@@ -110,6 +109,20 @@ def delete(database: dict, id: str) -> None:
     del database[id]
 
 def summary(database: dict, month: str) -> None:
+    MONTHS = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December"
+    }
     if month is None:
         month = "all"
     sum = 0
