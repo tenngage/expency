@@ -48,25 +48,6 @@ def get_supported_queries() -> dict:
             }],
             "help": "Add your expense"
         },
-        "update": {
-            "target": update,
-            "name_or_flags": [{
-                "argument": ["--id", "-i"],
-                "required": True,
-                "help": "ID of an expense you want to update"
-            },
-            {
-                "argument": ["--new-name"],
-                "required": False,
-                "help": "Updated name of an expense"
-            },
-            {
-                "argument": ["--new-amount"],
-                "required": False,
-                "help": "Updated amount of an expense"
-            }],
-            "help": "Update the expense by it's id"  
-        },
         "delete": {
             "target": delete,
             "name_or_flags": [{
@@ -122,11 +103,6 @@ def add(database: dict, name: str, amount: str) -> None:
     }
     print(f"Successfully added (ID - {id})")
     print(tabulate([database[id]], headers="keys", tablefmt="rounded_outline"))
-
-def update(database: dict, id: str, new_name: str, new_amount: str) -> None:
-    database[id]["name"] = new_name
-    database[id]["amount"] = new_amount
-    print(f"Successfully updated (ID - {id})")
 
 def delete(database: dict, id: str) -> None:
     print(f"Successfully deleted (ID - {id})")
