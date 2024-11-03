@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from tabulate import tabulate
 from typing import Callable, Generator, Tuple
 from datetime import datetime
+import sys
 import os
 import json
 
@@ -16,7 +17,7 @@ def main():
     args, query = get_query(supported_queries)
 
     query(database, **args)
-    
+
     save_database(DATABASE_PATH, database)
 
 def load_database(DATABASE_PATH: str) -> dict:
@@ -104,8 +105,12 @@ def add(database: dict, name: str, amount: str) -> None:
     print(tabulate([database[id]], headers="keys", tablefmt="rounded_outline"))
 
 def delete(database: dict, id: str) -> None:
+    try:
+        data = database[id]
+    except KeyError:
+        sys.exit("There is no expense with provided ID")
     print(f"Successfully deleted (ID - {id})")
-    print(tabulate([database[id]], headers="keys", tablefmt="rounded_outline"))
+    print(tabulate([data], headers="keys", tablefmt="rounded_outline"))
     del database[id]
 
 def summary(database: dict, month: str) -> None:
