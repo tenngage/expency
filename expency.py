@@ -1,3 +1,4 @@
+from smth.months import MONTHS
 from argparse import ArgumentParser
 from tabulate import tabulate
 from typing import Callable, Generator, Tuple
@@ -80,9 +81,18 @@ def get_supported_queries() -> dict:
             "name_or_flags": [{
                 "argument": ["--month", "-m"],
                 "required": False,
-                "help": "Choose month to display specified expenses"
+                "help": "Choose month to specify expenses list"
             }],
             "help": "List all expenses"
+        },
+        "summary": {
+            "target": summary,
+            "name_or_flags": [{
+                "argument": ["--month", "-m"],
+                "required": False,
+                "help": "Total expenses for a specific month"
+            }],
+            "help": "Display total expenses"
         }
     }
 
@@ -100,6 +110,9 @@ def get_query(supported_queries: dict) -> Tuple[dict, Callable[..., None]]:
     return args, query
 
 def add(database: dict, name: str, amount: str) -> None:
+    if float(amount) < 0:
+        print("Enter a valid expense")
+        return
     today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     id: str = str(max(0, len(database.keys())) + 1)
     database[id] = {
@@ -107,13 +120,36 @@ def add(database: dict, name: str, amount: str) -> None:
         "amount": amount,
         "created at": today
     }
+    print(f"Successfully added (ID - {id})")
+    print(tabulate([database[id]], headers="keys", tablefmt="rounded_outline"))
 
 def update(database: dict, id: str, new_name: str, new_amount: str) -> None:
     database[id]["name"] = new_name
     database[id]["amount"] = new_amount
+    print(f"Successfully updated (ID - {id})")
 
 def delete(database: dict, id: str) -> None:
+    print(f"Successfully deleted (ID - {id})")
+    print(tabulate([database[id]], headers="keys", tablefmt="rounded_outline"))
     del database[id]
+
+def summary(database: dict, month: str) -> None:
+    if month is None:
+        month = "all"
+    sum = 0
+    table: Generator = (
+        int(args["amount"].split("RUB")[0])
+        for args in database.values()
+        if month == "all" or args["created at"].split("-")[1] == month
+    )
+    for amount in table:
+        sum += amount
+    if month == "all":
+        print(f"Total expenses: {sum}RUB")
+    elif int(month) in range(1, 13): 
+        print(f"Total expenses in {MONTHS[int(month)]}: {sum}RUB")
+    else: print("Enter a valid month")
+
 
 def list_expenses(database: dict, month: str) -> None:
     if month is None:
@@ -121,7 +157,7 @@ def list_expenses(database: dict, month: str) -> None:
     table: Generator = ({
         "id": index,
         "name": properties["name"],
-        "amount": properties["amount"],
+        "amount": properties["amount"] + "RUB",
         "created at": properties["created at"]
     }
         for index, properties in database.items()
